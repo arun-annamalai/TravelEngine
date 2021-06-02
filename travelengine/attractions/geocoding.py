@@ -7,7 +7,7 @@ def get_lat_lon(place):
 
     # Geocoding an address
     geocode_result = gmaps.geocode(place)[0]
-    print(geocode_result)
+    # print(geocode_result)
 
     lat = geocode_result['geometry']['location']['lat']
     lon = geocode_result['geometry']['location']['lng']
