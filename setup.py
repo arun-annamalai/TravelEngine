@@ -28,6 +28,9 @@ setup(
         'scikit-learn',
         'requests',
         'pandas',
+        'requests',
+        'amadeus',
+        'googlemaps'
     ],
     classifiers=[
         # Possible: "3 - Alpha", "4 - Beta" or "5 - Production/Stable"
