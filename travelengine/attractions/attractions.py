@@ -47,14 +47,32 @@ def get_attractions(place, category):
         lat = attr_json['geometry']['coordinates'][1]
         lon = attr_json['geometry']['coordinates'][0]
         category = category
-
-        attractions_list.append(attraction(name, lat, lon, category))
+        new_attraction = attraction(name, lat, lon, category)
+        attractions_list.append(new_attraction)
 
     for obj in attractions_list:
         print(obj)
 
     return attractions_list
 
+def get_nearest_hotel(lat, lon):
+    secret = "5ae2e3f221c38a28845f05b6bd41f6a13ecd85a16c241187654ec0af"
+    server = "https://api.opentripmap.com/0.1/en"
+    endpoint = "/places/radius"
+    params = {}
+    params["lat"] = lat
+    params["lon"] = lon
+    params["radius"] = 10000
+    params["kinds"] = "other_hotels"
+    params["limit"] = 3
+    params["apikey"] = secret
+    resp = requests.get(server + endpoint, params=params)
+    response = json.loads(resp.content)
+    print("Here are the best hotels to stay at based on what you value most!")
+    for feature in response["features"]:
+        print(feature["properties"]["name"])
+
 
 if __name__ == '__main__':
-    get_attractions("Ann Arbor", "foods")
+    get_nearest_hotel(42.2808, -83.7430)
+    # get_attractions("Ann Arbor", "foods")

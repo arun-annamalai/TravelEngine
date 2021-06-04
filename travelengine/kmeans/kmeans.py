@@ -6,14 +6,17 @@ from travelengine.attractions.attractions import attraction
 # returns the x and y coordinates of each attractions
 def get_features(attractions_list):
     ml_input = []
-    for attraction in attractions_list:
-        ml_input.append([attraction.lat, attraction.lon])
+    for list in attractions_list:
+        for attraction in list:
+            print(attraction.lat)
+            ml_input.append([attraction.lat, attraction.lon])
     return ml_input
 
 def get_weights(attractions_list, weightings_dict):
     weights = []
-    for attraction in attractions_list:
-        weights.append(weightings_dict[attraction.category])
+    for list in attractions_list:
+        for attraction in list:
+            weights.append(weightings_dict[attraction.category])
     return weights
 
 
@@ -25,8 +28,7 @@ def cluster_attractions(coordinates, weights):
 
     # cluster center is a list of centers of clusters (x,y coordinates)
     cluster_centers = kmeans.cluster_centers_
-    cluster_errors = kmeans._interia
-
+    # cluster_errors = kmeans._interia
 
     return cluster_centers
 
@@ -34,4 +36,7 @@ def cluster_attractions(coordinates, weights):
 
 def get_location(coordinates_list):
     pass
+
+if __name__ == '__main__':
+    get_attractions("Ann Arbor", "foods")
 
