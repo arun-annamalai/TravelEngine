@@ -3,7 +3,7 @@ from travelengine.attractions.attractions import attraction
 
 import sklearn
 
-from travelengine.kmeans.kmeans import get_features, get_weights
+from travelengine.kmeans.kmeans import get_features, get_weights, cluster_attractions
 try:
     print("Welcome to our Hotel Finder. Which City would you like to visit? Format: City, Country")
     location = input()
@@ -23,13 +23,19 @@ try:
 
     }
 
+    print(weightings)
     total_attractions = []
-    for cat, weight in weightings:
+    for cat, weight in weightings.items():
         total_attractions.append(get_attractions(location, cat))
 
+    print("reached 1")
     coordinates = get_features(total_attractions)
+    print("reached 2")
     weights = get_weights(total_attractions, weightings)
-
+    print("reached 3")
+    center = cluster_attractions(coordinates, weights)
+    print("this is the center")
+    print(center)
 
 
 
