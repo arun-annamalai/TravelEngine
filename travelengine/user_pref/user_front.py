@@ -3,11 +3,23 @@ from travelengine.attractions.attractions import get_attractions
 try:
     print("Welcome to our Hotel Finder. Which City would you like to visit? Format: City, Country")
     location = input()
-    print("Do you want to consider popular restaurants in your hotel search (Yes/No)?")
-    restaurant_answer = input()
-    restaurant_wanted_bool = False
-    if restaurant_answer == "Yes":
-        restaurant_wanted_bool = True
-    get_attractions(location)
+    print("The different categories to consider are: foods, shops, museums, historic_architecture, theatres_and_entertainments, nightclubs.")
+    print("Please enter in comma-seperated form a rating of 1-10 for each category respectively.")
+    ratings = input()
+    ratings_list = ratings.split(',')
+    ratings_list = [int(x) for x in ratings_list]
+    assert(len(ratings_list) == 6)
+    weightings = {
+        "foods": ratings_list[0],
+        "shops": ratings_list[1],
+        "museums": ratings_list[2],
+        "historic_architecture": ratings_list[3],
+        "theatres_and_entertainments": ratings_list[4],
+        "nightclubs": ratings_list[5],
+
+    }
+
+
+    get_attractions2(location)
 except ResponseError as error:
     print(error)

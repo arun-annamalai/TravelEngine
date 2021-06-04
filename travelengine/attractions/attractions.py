@@ -43,7 +43,7 @@ def get_attractions2(place):
     endpoint = "/places/radius"
 
     params = {}
-    params["radius"]= 1600
+    params["radius"]= 48000
     params["apikey"] = secret
     try:
         lat, lon = get_lat_lon(place)
@@ -52,8 +52,9 @@ def get_attractions2(place):
     except ResponseError as error:
         print(error)
 
-    params['rate'] = 3
 
+    params["kinds"] = "foods"
+    params["limit"] = 5
     resp = requests.get(server+ endpoint, params = params)
     obj = json.loads(resp.content)
     print(obj)
