@@ -8,34 +8,17 @@ amadeus = Client(
     client_id='GoSZ8yaI32CKz3zPPEYbCXuYk0pGXDYM',
     client_secret='xahrteSDFmMzmbEv'
 )
+class attraction:
+    def __init__(self, name, lat, lon, category):
+        self.name = name
+        self.lat = lat
+        self.lon = lon
+        self.category = category
 
-def get_attractions(place):
-    # Get list of attractions in place
-    # place = "Barcelona, Spain"
-    lat, lon = get_lat_lon(place)
-    response = amadeus.reference_data.locations.points_of_interest.get(latitude=lat, longitude= lon)
-    list_of_attractions = []
-    for item in response.data:
-        list_of_attractions.append(item["name"])
-    print(list_of_attractions)
+    def __str__(self):
+        return f'Name: {self.name} lat: {self.lat} lon: {self.lon} category: {self.category}'
 
-    #find lat,long of each attraction in list
-    attraction_lat_lon_list = []
-
-    # this is a very slow function
-    for attraction in list_of_attractions:
-        lat, lon = get_lat_lon(attraction)
-        attraction_lat_lon_list.append(
-            {
-                "attraction": attraction,
-                "lat": lat,
-                "lon": lon,
-            }
-        )
-    print(attraction_lat_lon_list)
-
-
-def get_attractions2(place):
+def get_attractions(place, category):
     print(place)
 
     secret = "5ae2e3f221c38a28845f05b6bd41f6a13ecd85a16c241187654ec0af"
@@ -53,12 +36,25 @@ def get_attractions2(place):
         print(error)
 
 
-    params["kinds"] = "foods"
+    params["kinds"] = category
     params["limit"] = 5
-    resp = requests.get(server+ endpoint, params = params)
-    obj = json.loads(resp.content)
-    print(obj)
+    resp = requests.get(server + endpoint, params = params)
+    response = json.loads(resp.content)
+
+    attractions_list = []
+    for attr_json in response['features']:
+        name = attr_json['properties']['name']
+        lat = attr_json['geometry']['coordinates'][1]
+        lon = attr_json['geometry']['coordinates'][0]
+        category = category
+
+        attractions_list.append(attraction(name, lat, lon, category))
+
+    for obj in attractions_list:
+        print(obj)
+
+    return attractions_list
 
 
 if __name__ == '__main__':
-    get_attractions2("Ann Arbor")
+    get_attractions("Ann Arbor", "foods")

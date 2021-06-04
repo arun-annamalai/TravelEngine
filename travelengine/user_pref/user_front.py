@@ -1,5 +1,9 @@
 from travelengine.attractions.attractions import get_attractions
+from travelengine.attractions.attractions import attraction
 
+import sklearn
+
+from travelengine.kmeans.kmeans import get_features, get_weights
 try:
     print("Welcome to our Hotel Finder. Which City would you like to visit? Format: City, Country")
     location = input()
@@ -19,7 +23,16 @@ try:
 
     }
 
+    total_attractions = []
+    for cat, weight in weightings:
+        total_attractions.append(get_attractions(location, cat))
 
-    get_attractions2(location)
+    coordinates = get_features(total_attractions)
+    weights = get_weights(total_attractions, weightings)
+
+
+
+
+
 except ResponseError as error:
     print(error)
