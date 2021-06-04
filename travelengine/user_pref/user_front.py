@@ -37,6 +37,10 @@ try:
     print("this is the center")
     print(center)
 
+    # just have to figure out how to extract lat, lon from center and then call get_nearest_hotel function
+    # lat = center[0]
+    # lon = center[1]
+
 
 
 
