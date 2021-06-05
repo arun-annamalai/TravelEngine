@@ -1,18 +1,19 @@
-from travelengine.attractions.attractions import get_attractions
+from travelengine.attractions.attractions import get_attractions, get_nearest_hotel
 from travelengine.attractions.attractions import attraction
 
-import sklearn
-
 from travelengine.kmeans.kmeans import get_features, get_weights, cluster_attractions
+import traceback
+
 try:
     print("Welcome to our Hotel Finder. Which City would you like to visit? Format: City, Country")
     location = input()
-    print("The different categories to consider are: foods, shops, museums, historic_architecture, theatres_and_entertainments, nightclubs.")
+    print(
+        "The different categories to consider are: foods, shops, museums, historic_architecture, theatres_and_entertainments, nightclubs.")
     print("Please enter in comma-seperated form a rating of 1-10 for each category respectively.")
     ratings = input()
     ratings_list = ratings.split(',')
+    assert (len(ratings_list) == 6)
     ratings_list = [int(x) for x in ratings_list]
-    assert(len(ratings_list) == 6)
     weightings = {
         "foods": ratings_list[0],
         "shops": ratings_list[1],
@@ -38,11 +39,11 @@ try:
     print(center)
 
     # just have to figure out how to extract lat, lon from center and then call get_nearest_hotel function
-    # lat = center[0]
-    # lon = center[1]
+    lat = center[0][0]
+    lon = center[0][1]
+    hotel = get_nearest_hotel(lat, lon)
 
+    print(hotel)
 
-
-
-except ResponseError as error:
-    print(error)
+except Exception:
+    print(traceback.print_exc())

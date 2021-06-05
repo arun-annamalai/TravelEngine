@@ -2,6 +2,7 @@ import pandas
 import sklearn
 from sklearn.cluster import KMeans
 from travelengine.attractions.attractions import attraction
+from travelengine.attractions.attractions import get_attractions
 
 # returns the x and y coordinates of each attractions
 def get_features(attractions_list):
