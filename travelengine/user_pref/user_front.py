@@ -29,21 +29,16 @@ try:
     for cat, weight in weightings.items():
         total_attractions.append(get_attractions(location, cat))
 
-    print("reached 1")
     coordinates = get_features(total_attractions)
-    print("reached 2")
     weights = get_weights(total_attractions, weightings)
-    print("reached 3")
     center = cluster_attractions(coordinates, weights)
+
     print("this is the center")
     print(center)
 
     # just have to figure out how to extract lat, lon from center and then call get_nearest_hotel function
     lat = center[0][0]
     lon = center[0][1]
-    hotel = get_nearest_hotel(lat, lon)
-
-    print(hotel)
-
+    get_nearest_hotel(lat, lon)
 except Exception:
     print(traceback.print_exc())

@@ -3,11 +3,12 @@ from amadeus import Client, ResponseError
 from travelengine.attractions.geocoding import get_lat_lon
 import json
 
-
 amadeus = Client(
     client_id='GoSZ8yaI32CKz3zPPEYbCXuYk0pGXDYM',
     client_secret='xahrteSDFmMzmbEv'
 )
+
+
 class attraction:
     def __init__(self, name, lat, lon, category):
         self.name = name
@@ -18,15 +19,14 @@ class attraction:
     def __str__(self):
         return f'Name: {self.name} lat: {self.lat} lon: {self.lon} category: {self.category}'
 
-def get_attractions(place, category):
-    print(place)
 
+def get_attractions(place, category):
     secret = "5ae2e3f221c38a28845f05b6bd41f6a13ecd85a16c241187654ec0af"
     server = "https://api.opentripmap.com/0.1/en"
     endpoint = "/places/radius"
 
     params = {}
-    params["radius"]= 48000
+    params["radius"] = 48000
     params["apikey"] = secret
     try:
         lat, lon = get_lat_lon(place)
@@ -35,10 +35,9 @@ def get_attractions(place, category):
     except ResponseError as error:
         print(error)
 
-
     params["kinds"] = category
     params["limit"] = 5
-    resp = requests.get(server + endpoint, params = params)
+    resp = requests.get(server + endpoint, params=params)
     response = json.loads(resp.content)
 
     attractions_list = []
@@ -49,11 +48,8 @@ def get_attractions(place, category):
         category = category
         new_attraction = attraction(name, lat, lon, category)
         attractions_list.append(new_attraction)
-
-    for obj in attractions_list:
-        print(obj)
-
     return attractions_list
+
 
 def get_nearest_hotel(lat, lon):
     secret = "5ae2e3f221c38a28845f05b6bd41f6a13ecd85a16c241187654ec0af"
