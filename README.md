@@ -19,6 +19,7 @@ python3 userfront.py
 ```
 
 # Sample Picture
+<img src=https://github.com/arun-annamalai/TravelEngine/blob/c2bf6f536d3686cecd5f4d7f6c570a7c9e1c0007/sample.png>
 
 # Future Road Map
 Later down the line, we plan to add the functionality to filter hotels by certain brands so that users can benefit from their past rewards. 
